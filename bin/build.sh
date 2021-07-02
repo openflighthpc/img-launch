@@ -12,5 +12,9 @@ bash $DIR/bin/gen-cloud-init.sh
 # Build VM
 bash $DIR/bin/create-vm.sh
 
+# Wait for VM to Boot
+echo "==== WAITING FOR VM TO BOOT ===="
+sleep 60
+
 # Apply customisations
 bash $DIR/bin/apply-profile.sh
