@@ -37,6 +37,7 @@ cat << EOF > $BUILD/user-data
 disable_root: 0
 ssh_pwauth:   1
 chpasswd:
+  expire: false
   list: |
      root:$ROOT_PASS
 system_info:
