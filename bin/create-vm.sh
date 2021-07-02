@@ -24,8 +24,8 @@ fi
 
 echo "---- Creating Disk ----"
 qemu-img convert -p -f raw -O qcow2 $DIR/$SOURCE_IMG $VM_DISK
+echo "---- Resizing Disk ----"
 qemu-img resize $VM_DISK $DISK_SIZE
-echo "---- Finished Creating Disk ----"
 
 echo "---- Building VM ----"
 virt-install \
@@ -42,6 +42,5 @@ virt-install \
 --console pty,target_type=serial \
 --graphics vnc,listen=0.0.0.0,port='-1' \
 --noautoconsole
-echo "---- Finished Building VM ----"
 
 echo "==== FINISHED CREATING VIRTUAL MACHINE ===="
