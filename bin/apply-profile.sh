@@ -11,7 +11,7 @@ echo "==== APPLYING PROFILE CONFIGURATION ===="
 EXT_MAC="$(virsh domiflist $VM_NAME |grep $EXT_BRIDGE |awk '{print $5}')"
 IP="$(arp -e |grep $EXT_MAC |awk '{print $1}')"
 
-scp $DIR/scripts/$PROFILE_SCRIPT root@$IP:/tmp/$PROFILE_SCRIPT
-ssh root@$IP "bash /tmp/$PROFILE_SCRIPT"
+scp -o StrictHostKeyChecking=no -o PasswordAuthentication=no $DIR/scripts/$PROFILE_SCRIPT root@$IP:/tmp/$PROFILE_SCRIPT
+ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no root@$IP "bash /tmp/$PROFILE_SCRIPT"
 
 echo "==== FINISHED APPLYING PROFILE CONFIGURATION"
