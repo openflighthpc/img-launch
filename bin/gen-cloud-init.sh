@@ -22,8 +22,8 @@ fi
 cat << EOF > $BUILD/meta-data
 instance-id: iid-local01
 dsmode: local
-local-hostname: $VM_NAME
-hostname: $VM_NAME
+local-hostname: $VM_NAME.$DOMAIN
+hostname: $VM_NAME.$DOMAIN
 fqdn: $VM_NAME.$DOMAIN
 network:
   config: disabled
