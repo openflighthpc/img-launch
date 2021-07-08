@@ -14,7 +14,7 @@ bash $DIR/bin/create-vm.sh
 
 # Wait for VM to Boot
 echo "==== WAITING FOR VM TO BOOT ===="
-sleep 60
+sleep 120
 
 # Apply customisations
 bash $DIR/bin/apply-profile.sh
