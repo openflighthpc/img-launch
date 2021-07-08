@@ -8,7 +8,7 @@ EXT_BRIDGE="ext"
 
 # Build
 VM_NAME="director"
-DOMAIN="cluster.alces.network"
+DOMAIN="cluster.compute.estate"
 PROFILE_SCRIPT="director.sh"
 
 DEFAULT_USER="flightadmin"
