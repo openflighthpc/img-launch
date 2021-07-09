@@ -5,7 +5,6 @@
 
 yum -y install firewalld
 systemctl enable firewalld
-systemctl start firewalld
 
 #
 # Network setup
