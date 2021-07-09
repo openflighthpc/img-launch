@@ -50,6 +50,9 @@ system_info:
     shell: /bin/bash
 network:
   config: disabled
+rumcmd:
+  - ping -c 1 $MASTER_IP # Ensure ARP cache is populated
+  - echo "nameserver 8.8.8.8" > /etc/resolv.conf; rm -fv /etc/NetworkManager/conf.d/99-disableNMDNS.conf # Fix for EL7 DNS issues
 EOF
 
 mkisofs -o $BUILD/userdata.iso -V cidata -J $BUILD/meta-data $BUILD/user-data

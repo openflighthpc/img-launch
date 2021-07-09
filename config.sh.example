@@ -20,6 +20,7 @@ MGT_IFACE="eth3"
 MGT_IP="10.11.254.1"
 
 # Build
+MASTER_IP="10.151.0.1" # IP address of system running these scripts, used for populating ARP cache
 VM_NAME="director"
 SITE_NAME="site"
 CLUSTER_NAME="cluster"
