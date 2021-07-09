@@ -15,9 +15,9 @@ SSH_ARGS='-o StrictHostKeyChecking=no -o PasswordAuthentication=no'
 
 SCRIPT="$(cat << EOF
 $(cat $DIR/config.sh)
-$(echo "---- Applying Base Configuration ----")
+---- Applying Base Configuration ----
 $(cat $DIR/scripts/base.sh)
-$(echo "---- Applying Profile Configuration ($PROFILE_SCRIPT) ----")
+---- Applying Profile Configuration ($PROFILE_SCRIPT) ----
 $(cat $DIR/scripts/$PROFILE_SCRIPT)
 EOF
 )"
