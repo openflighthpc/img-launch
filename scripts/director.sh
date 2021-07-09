@@ -6,5 +6,5 @@
 #
 # Setup as Gateway
 #
-firewall-offline-cmd --add-masquerade --zone public --permanent
-firewall-offline-cmd --add-interface $EXT_IFACE --zone public --permanent
+firewall-offline-cmd --add-masquerade --zone public 
+firewall-offline-cmd --add-interface $EXT_IFACE --zone public 
