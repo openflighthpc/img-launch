@@ -31,7 +31,7 @@ Creates a libvirt VM from a raw image, customises with cloud-init and applies pr
   - `gen-cloud-init.sh` - Creates an ISO file with cloud-init info for a node
 - `build/` - Contains build-specific info within directories named after the VM being created
 - `images/` - The location to store raw images
-- `scripts/` - Profile script storage
+- `scripts/` - Profile script storage (note: vars in `config.sh` will be made available to these scripts)
   - `base.sh` - A generic script that will be run before applying the specific profile script
 
 ## Future Things
