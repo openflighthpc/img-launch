@@ -33,8 +33,6 @@ ONBOOT=yes
 ZONE=external
 EOF
 
-    firewall-offline-cmd --add-masquerade --zone public --permanent
-    firewall-offline-cmd --add-interface $EXT_IFACE --zone public --permanent
 fi
 
 if [[ ! -z "$SITE_BRIDGE" ]] ; then
@@ -53,9 +51,9 @@ NETMASK=255.255.0.0
 ZONE=site
 EOF
 
-    firewall-offline-cmd --new-zone site --permanent
-    firewall-offline-cmd --set-target=ACCEPT --zone site --permanent
-    firewall-offline-cmd --zone site --add-interface $SITE_IFACE --permanent
+    firewall-offline-cmd --new-zone site 
+    firewall-offline-cmd --set-target=ACCEPT --zone site 
+    firewall-offline-cmd --zone site --add-interface $SITE_IFACE 
 fi
 
 
@@ -75,9 +73,9 @@ NETMASK=255.255.0.0
 ZONE=cluster1
 EOF
 
-    firewall-offline-cmd --new-zone cluster1 --permanent
-    firewall-offline-cmd --set-target=ACCEPT --zone cluster1 --permanent
-    firewall-offline-cmd --zone cluster1 --add-interface $PRI_IFACE --permanent
+    firewall-offline-cmd --new-zone cluster1 
+    firewall-offline-cmd --set-target=ACCEPT --zone cluster1 
+    firewall-offline-cmd --zone cluster1 --add-interface $PRI_IFACE 
 
 fi
 
@@ -97,9 +95,9 @@ NETMASK=255.255.0.0
 ZONE=cluster1mgt
 EOF
 
-    firewall-offline-cmd --new-zone cluster1mgt --permanent
-    firewall-offline-cmd --set-target=ACCEPT --zone cluster1mgt --permanent
-    firewall-offline-cmd --zone cluster1mgt --add-interface $MGT_IFACE --permanent
+    firewall-offline-cmd --new-zone cluster1mgt 
+    firewall-offline-cmd --set-target=ACCEPT --zone cluster1mgt 
+    firewall-offline-cmd --zone cluster1mgt --add-interface $MGT_IFACE 
 fi
 
 firewall-cmd --reload
@@ -124,7 +122,7 @@ cat << EOF > /etc/profile.d/flightcenter.sh
 #Custom PS1 with client name
 [ -f /etc/flightcentersupported ] && c=32 || c=31
 if [ "\$PS1" ]; then
-  PS1="[\u@\h\[\e[1;\${c}m\][$VM_NAME-$SITE_NAME]\[\e[0m\] \W]\\$ "
+  PS1="[\u@\h\[\e[1;\${c}m\] [$VM_NAME-$SITE_NAME]\[\e[0m\] \W]\\$ "
 fi
 EOF
 touch /etc/flightcentersupported
