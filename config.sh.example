@@ -3,12 +3,28 @@ SOURCE_IMG="images/"
 VM_PATH="/opt/vm"
 
 # Network
+## Blank bridges will be ignored, networks will not be set up for empty vars
+EXT_BRIDGE="ext" 
+EXT_IFACE="eth0"
+
+SITE_BRIDGE="site"
+SITE_IFACE="eth1"
+SITE_IP="10.254.254.1"
+
 PRI_BRIDGE="pri"
-EXT_BRIDGE="ext"
+PRI_IFACE="eth2"
+PRI_IP="10.10.254.1"
+
+MGT_BRIDGE="mgt"
+MGT_IFACE="eth3"
+MGT_IP="10.11.254.1"
 
 # Build
 VM_NAME="director"
-DOMAIN="cluster.compute.estate"
+SITE_NAME="site"
+CLUSTER_NAME="cluster"
+DOMAIN="$SITE_NAME.compute.estate"
+CLUSTER_DOMAIN="$CLUSTER_NAME.$DOMAIN"
 PROFILE_SCRIPT="director.sh"
 
 DEFAULT_USER="flightadmin"
