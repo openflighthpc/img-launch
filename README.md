@@ -14,7 +14,7 @@ Creates a libvirt VM from a raw image, customises with cloud-init and applies pr
 ## How To
 
 - Download source image to `images/`
-- Set variables in `config.sh`
+- Copy `config.sh.example` to `config.sh` and set variables
 - Create/modify profile script in `scripts`
 - Build VM
   ```shell
