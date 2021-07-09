@@ -28,6 +28,13 @@ echo "---- Resizing Disk ----"
 qemu-img resize $VM_DISK $DISK_SIZE
 
 echo "---- Building VM ----"
+NET_ARGS="$(
+[[ ! -z "$EXT_BRIDGE" ]] && echo "--network bridge=$EXT_BRIDGE "
+[[ ! -z "$SITE_BRIDGE" ]] && echo "--network bridge=$SITE_BRIDGE "
+[[ ! -z "$PRI_BRIDGE" ]] && echo "--network bridge=$PRI_BRIDGE "
+[[ ! -z "$MGT_BRIDGE" ]] && echo "--network bridge=$MGT_BRIDGE "
+)"
+
 virt-install \
 --name $VM_NAME \
 --import \
@@ -37,10 +44,7 @@ virt-install \
 --vcpus 2 \
 --os-type linux \
 --os-variant centos7.0 \
-$([[ ! -z "$EXT_BRIDGE" ]] && echo "--network bridge=$EXT_BRIDGE \ ")
-$([[ ! -z "$SITE_BRIDGE" ]] && echo "--network bridge=$SITE_BRIDGE \ ")
-$([[ ! -z "$PRI_BRIDGE" ]] && echo "--network bridge=$PRI_BRIDGE \ ")
-$([[ ! -z "$MGT_BRIDGE" ]] && echo "--network bridge=$MGT_BRIDGE \ ")
+$NET_ARGS \
 --console pty,target_type=serial \
 --graphics vnc,listen=0.0.0.0,port='-1' \
 --noautoconsole
