@@ -13,7 +13,7 @@ bash $DIR/bin/gen-cloud-init.sh
 bash $DIR/bin/create-vm.sh
 
 # Wait for VM to Boot
-echo "==== WAITING FOR VM TO BOOT ===="
+echo "==== WAITING FOR MACHINE TO BOOT ===="
 sleep 120
 
 # Apply customisations

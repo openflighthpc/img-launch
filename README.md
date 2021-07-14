@@ -7,14 +7,17 @@ Creates a libvirt VM from a raw image, customises with cloud-init and applies pr
 ## Install
 
 - Ensure dependencies are installed
-    - `libvirt`
-    - `virt-install`
-- Clone the repository to your libvirt VM root directory (e.g. `/opt/vm`)
+    - `libvirt` [For VM deployment] 
+    - `virt-install` [For VM deployment]
+    - `awscli` [For AWS deployment]
+    - `azure-cli` [For Azure deployment]
+- Clone the repository
+    - Note: If doing VM deployment then clone to your libvirt VM root directory (e.g. `/opt/vm`)
 
 ## How To
 
 - Download source image to `images/`
-- Copy `config.sh.example` to `config.sh` and set variables
+- Copy `config/*.config.sh.example` to `config/*.config.sh` and set variables
 - Create/modify profile script in `scripts`
 - Build VM
   ```shell
@@ -30,6 +33,11 @@ Creates a libvirt VM from a raw image, customises with cloud-init and applies pr
   - `delete_failed.sh` - Undefines and deletes VM resources defined in `config.sh`
   - `gen-cloud-init.sh` - Creates an ISO file with cloud-init info for a node
 - `build/` - Contains build-specific info within directories named after the VM being created
+- `config/` - Contains configuration files for the machine and various platforms within
+  - `aws.config.sh.example` - Example AWS variable configuration
+  - `azure.config.sh.example` - Example Azure variable configuration
+  - `libvirt.config.sh.example` - Example libvirt variable configuration
+  - `machine.config.sh.example` - Example general machine configuration
 - `images/` - The location to store raw images
 - `scripts/` - Profile script storage (note: vars in `config.sh` will be made available to these scripts)
   - `base.sh` - A generic script that will be run before applying the specific profile script

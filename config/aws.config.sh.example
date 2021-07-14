@@ -1,0 +1,4 @@
+AWS_IMG="ami-abcd123efgh5678"
+AWS_LOCATION="eu-west-2"
+AWS_TYPE="t3.small"
+AWS_TEMPLATE="templates/aws/machine.yaml"

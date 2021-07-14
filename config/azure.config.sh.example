@@ -1,0 +1,5 @@
+AZ_RG="mycluster"
+AZ_IMG="CENTOS7BASE2808191247"
+AZ_LOCATION="uksouth"
+AZ_SIZE="Standard_DS1_v2"
+AZS_TEMPLATE="templates/azure/machine.json"
