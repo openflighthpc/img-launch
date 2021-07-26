@@ -133,3 +133,4 @@ ln -snf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 
 yum -y update
+yum -y install git vim wget
