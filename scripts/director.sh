@@ -35,7 +35,7 @@ git clone https://github.com/alces-software/alces-cloud-cluster /opt/flight/depl
 #
 # Repo Mirror
 #
-sed =i "s/^IP=.*/IP=$PRI_IP/g" /opt/flight/deployment/support/repoclone.sh
+sed -i "s/^IP=.*/IP=$PRI_IP/g" /opt/flight/deployment/support/repoclone.sh
 bash /opt/flight/deployment/support/repoclone.sh
 
 #
