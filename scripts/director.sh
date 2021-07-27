@@ -114,6 +114,8 @@ yum clean all
 #
 # DHCP Server
 #
+yum install -y dhcp
+
 cat << EOF > /etc/dhcp/dhcpd.conf
 option space pxelinux;
 option pxelinux.magic code 208 = string;
@@ -128,7 +130,7 @@ subnet $SITE_NET netmask 255.255.0.0 {
     option domain-name-servers $SITE_IP;
     pool
     {
-      range ${SITE_IP[2]*.*}.250.1 ${SITE_IP[2]*.*}.250.254;
+      range $(echo "$SITE_IP" |cut -d '.' -f1,2).250.1 $(echo "$SITE_IP" |cut -d '.' -f1,2).250.254;
     }
 
     class "pxeclients" {
@@ -150,7 +152,7 @@ subnet $PRI_NET netmask 255.255.0.0 {
     option domain-name-servers $PRI_IP;
     pool
     {
-      range ${PRI_IP%[2]*.*}.250.1 ${PRI_IP%[2]*.*}.250.254;
+      range $(echo "$PRI_IP" |cut -d '.' -f1,2).250.1 $(echo "$PRI_IP" |cut -d '.' -f1,2).250.254;
     }
 
     class "pxeclients" {

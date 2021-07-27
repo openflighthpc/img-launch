@@ -38,8 +38,8 @@ DISK_SIZE="128G"
 # DO NOT TOUCH BELOW #
 ######################
 
-SITE_NET="${SITE_IP[2]*.*}0.0"
-PRI_NET="${PRI_IP%[2]*.*}0.0"
+SITE_NET="$(echo "$SITE_IP" |cut -d '.' -f1,2).0.0"
+PRI_NET="$(echo "$PRI_IP" |cut -d '.' -f1,2).0.0"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BUILD="$DIR/build/$VM_NAME"
