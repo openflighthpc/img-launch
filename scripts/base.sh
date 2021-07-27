@@ -114,6 +114,11 @@ systemctl disable cloud-final
 systemctl disable cloud-init-local
 
 #
+# Restart Network for New Interfaces
+#
+systemctl restart network
+
+#
 # System Config
 #
 
