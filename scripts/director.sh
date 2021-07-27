@@ -170,3 +170,30 @@ EOF
 
 systemctl enable dhcpd
 systemctl restart dhcpd
+
+#
+# Client Script
+#
+cat << EOF > /etc/httpd/conf.d/client.conf
+<Directory /opt/flight/client/>
+    Options Indexes MultiViews FollowSymlinks
+    AllowOverride None
+    Require all granted
+    Order Allow,Deny
+    Allow from $PRI_NET/16
+</Directory>
+Alias /client /opt/flight/client/
+EOF
+
+mkdir /opt/flight/client
+
+cat << EOF > /opt/flight/client/setup.sh
+#
+# Setup Repo Client
+#
+rm -f /etc/yum.repos.d/*.repo
+curl http://$PRI_IP/deployment/repo/cluster.repo > /etc/yum.repos.d/cluster.repo
+yum clean all
+EOF
+
+systemctl restart httpd
