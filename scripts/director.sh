@@ -83,29 +83,29 @@ label local
 label install
   menu label ^Install system
   kernel /images/centos7/vmlinuz
-  append initrd=/images/centos7/initrd.img ip=dhcp inst.repo=http://$PRI_IP/deployment/repo/centos/7/centos-7-base/
+  append initrd=/images/centos7/initrd.img ip=dhcp inst.repo=http://$PRI_IP/deployment/repo/centos-7-base/
 
 label installvesa
   menu label Install system with ^basic video driver
   kernel /images/centos7/vmlinuz
-  append initrd=/images/centos7/initrd.img ip=dhcp inst.xdriver=vesa nomodeset inst.repo=http://$PRI_IP/deployment/repo/centos/7/centos-7-base/
+  append initrd=/images/centos7/initrd.img ip=dhcp inst.xdriver=vesa nomodeset inst.repo=http://$PRI_IP/deployment/repo/centos-7-base/
 EOF
 
 cat << EOF > /var/lib/tftpboot/grub.cfg
 set timeout=60
 menuentry 'install' {
-  linuxefi /images/centos7/vmlinuz ip=dhcp http://$PRI_IP/deployment/repo/centos/7/centos-7-base/
+  linuxefi /images/centos7/vmlinuz ip=dhcp http://$PRI_IP/deployment/repo/centos-7-base/
   initrdefi /images/centos7/initrd.img
 }
 EOF
 
 mkdir -p /var/lib/tftpboot/images/centos7/
-cp -v /opt/flight/deployment/repo/centos/7/centos-7-base/images/pxeboot/* /var/lib/tftpboot/images/centos7/.
+cp -v /opt/flight/deployment/repo/centos-7-base/images/pxeboot/* /var/lib/tftpboot/images/centos7/.
 
 cat << EOF > /etc/yum.repos.d/openflight.repo
 [openflight-dev]
 name=OpenFlight - Development
-baseurl=http://$PRI_IP/deployment/repo/centos/7/openflight-dev/
+baseurl=http://$PRI_IP/deployment/repo/openflight-dev/
 enabled=1
 gpgcheck=0
 EOF
@@ -115,7 +115,7 @@ yum install -y flight-hunter flight-inventory
 /opt/flight/bin/flenable --yes
 
 rm -rfv /etc/yum.repos.d/*.repo
-cp -v /opt/flight/deployment/repo/centos/7/mirror.repo /etc/yum.repos.d/cluster.repo
+cp -v /opt/flight/deployment/repo/cluster.repo /etc/yum.repos.d/cluster.repo
 
 yum clean all
 
