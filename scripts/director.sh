@@ -102,20 +102,12 @@ EOF
 mkdir -p /var/lib/tftpboot/images/centos7/
 cp -v /opt/flight/deployment/repo/centos-7-base/images/pxeboot/* /var/lib/tftpboot/images/centos7/.
 
-cat << EOF > /etc/yum.repos.d/openflight.repo
-[openflight-dev]
-name=OpenFlight - Development
-baseurl=http://$PRI_IP/deployment/repo/openflight-dev/
-enabled=1
-gpgcheck=0
-EOF
+rm -rfv /etc/yum.repos.d/*.repo
+cp -v /opt/flight/deployment/repo/cluster.repo /etc/yum.repos.d/cluster.repo
 
 yum clean all 
 yum install -y flight-hunter flight-inventory
 /opt/flight/bin/flenable --yes
-
-rm -rfv /etc/yum.repos.d/*.repo
-cp -v /opt/flight/deployment/repo/cluster.repo /etc/yum.repos.d/cluster.repo
 
 yum clean all
 
