@@ -41,3 +41,8 @@ Creates a libvirt VM from a raw image, customises with cloud-init and applies pr
 - AWS/Azure support
 - OpenStack support
 
+## Notes
+
+### Gateway
+
+The gateway hosts a client script that can be curled in order to configure the default route of the client. This does a bit of magic to identify what subnet of the gateway's to use for the client depending on its network setup. **The assumptions only work should the gateway use identical last 2 octets in its IP address**. For example, the gateway's SITE & PRI IPs both end `254.1`.

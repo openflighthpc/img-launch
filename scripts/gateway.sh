@@ -21,6 +21,7 @@ cat << EOF > /etc/httpd/conf.d/client.conf
     Require all granted
     Order Allow,Deny
     Allow from $PRI_NET/16
+    Allow from $SITE_NET/16
 </Directory>
 Alias /client /opt/flight/client/
 EOF
@@ -31,8 +32,10 @@ cat << EOF > /opt/flight/client/setup.sh
 #
 # Setup GW Client
 #
-IFACE='eth0'
-echo "default via $PRI_IP dev \$IFACE" > /etc/sysconfig/network-scripts/route-\$IFACE
+IFACE="eth0"
+NET="\$(ifconfig \$IFACE 2>/dev/null |awk '/inet / {print \$2}' |sed 's/addr://' |cut -d '.' -f1,2)"
+GW_IP_END="$(echo "$SITE_IP" |cut -d '.' -f3,4)"
+echo "default via \$NET.\$GW_IP_END dev \$IFACE" > /etc/sysconfig/network-scripts/route-\$IFACE
 EOF
 
 systemctl enable httpd
