@@ -4,12 +4,6 @@
 #
 
 #
-# Setup as Gateway
-#
-firewall-offline-cmd --add-masquerade --zone public 
-firewall-offline-cmd --add-interface $EXT_IFACE --zone public 
-
-#
 # HTTP Server & Deployment Files
 #
 
