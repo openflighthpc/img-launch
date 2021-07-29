@@ -179,7 +179,7 @@ cat << EOF > /etc/httpd/conf.d/client.conf
 Alias /client /opt/flight/client/
 EOF
 
-mkdir /opt/flight/client
+mkdir -p /opt/flight/client
 
 cat << EOF > /opt/flight/client/setup.sh
 #
