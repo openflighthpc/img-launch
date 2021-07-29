@@ -11,7 +11,7 @@ fi
 # Repo Client Script
 #
 if [[ "$PRI_IP" != "$REPO_IP" ]] ; then
-    curl http://$REPO_IP/client/setup.sh |/bin.bash
+    curl http://$REPO_IP/client/setup.sh |/bin/bash
 fi
 
 #
