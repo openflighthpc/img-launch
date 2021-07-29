@@ -33,6 +33,12 @@ public-keys:
   - $(cat ~/.ssh/id_rsa.pub)
 EOF
 
+NET_ARGS="$(
+[[ ! -z "$SITE_BRIDGE" ]] && echo "  - echo -e 'TYPE=Ethernet\nBOOTPROTO=none\nDEFROUTE=no\nPEERDNS=no\nNAME=$SITE_IFACE\nDEVICE=$SITE_IFACE\nONBOOT=yes\nIPADDR=$SITE_IP\nNETMASK=255.255.0.0' > /etc/sysconfig/network-scripts/ifcfg-$SITE_IFACE"
+[[ ! -z "$PRI_BRIDGE" ]] && echo "  - echo -e 'TYPE=Ethernet\nBOOTPROTO=none\nDEFROUTE=no\nPEERDNS=no\nNAME=$PRI_IFACE\nDEVICE=$PRI_IFACE\nONBOOT=yes\nIPADDR=$PRI_IP\nNETMASK=255.255.0.0' > /etc/sysconfig/network-scripts/ifcfg-$PRI_IFACE"
+[[ ! -z "$MGT_BRIDGE" ]] && echo "  - echo -e 'TYPE=Ethernet\nBOOTPROTO=none\nDEFROUTE=no\nPEERDNS=no\nNAME=$MGT_IFACE\nDEVICE=$MGT_IFACE\nONBOOT=yes\nIPADDR=$MGT_IP\nNETMASK=255.255.0.0' > /etc/sysconfig/network-scripts/ifcfg-$MGT_IFACE"
+)"
+
 cat << EOF > $BUILD/user-data
 #cloud-config
 disable_root: 0
@@ -53,6 +59,7 @@ network:
   config: disabled
 runcmd:
   - echo "nameserver 8.8.8.8" > /etc/resolv.conf; rm -fv /etc/NetworkManager/conf.d/99-disableNMDNS.conf # Fix for EL7 DNS issues
+$NET_ARGS
 EOF
 
 mkisofs -o $BUILD/userdata.iso -V cidata -J $BUILD/meta-data $BUILD/user-data
