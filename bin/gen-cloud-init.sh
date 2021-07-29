@@ -60,6 +60,7 @@ network:
 runcmd:
   - echo "nameserver 8.8.8.8" > /etc/resolv.conf; rm -fv /etc/NetworkManager/conf.d/99-disableNMDNS.conf # Fix for EL7 DNS issues
 $NET_ARGS
+  - systemctl restart network
 EOF
 
 mkisofs -o $BUILD/userdata.iso -V cidata -J $BUILD/meta-data $BUILD/user-data
