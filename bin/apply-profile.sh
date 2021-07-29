@@ -9,7 +9,7 @@ source $DIR/config.sh
 
 echo "==== APPLYING PROFILE CONFIGURATION ===="
 
-SSH_ARGS='-o StrictHostKeyChecking=no -o PasswordAuthentication=no'
+SSH_ARGS='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'
 
 SCRIPT="$(cat << EOF
 $(cat $DIR/global.config.sh)
