@@ -35,7 +35,7 @@ cat << EOF > /opt/flight/client/setup.sh
 IFACE="eth0"
 NET="\$(grep "^IPADDR" /etc/sysconfig/network-scripts/ifcfg-\$IFACE |sed "s/IPADDR=//g" |cut -d "." -f1,2)"
 GW_IP_END="$(echo "$SITE_IP" |cut -d '.' -f3,4)"
-sed -i "s/GATEWAY=.*/GATEWAY=\$NET.\$GW_IP_END/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE
+grep -q GATEWAY /etc/sysconfig/network-scripts/ifcfg-\$IFACE && sed -i "s/GATEWAY=.*/GATEWAY=\$NET.\$GW_IP_END/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE || echo "GATEWAY=\$NET.\$GW_IP_END" >> /etc/sysconfig/network-scripts/ifcfg-\$IFACE
 sed -i "s/DEFROUTE=.*/DEFROUTE=yes/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE
 ip route replace default via \$NET.\$GW_IP_END dev \$IFACE
 EOF
