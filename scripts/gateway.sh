@@ -37,6 +37,7 @@ NET="\$(grep "^IPADDR" /etc/sysconfig/network-scripts/ifcfg-\$IFACE |sed "s/IPAD
 GW_IP_END="$(echo "$SITE_IP" |cut -d '.' -f3,4)"
 sed -i "s/GATEWAY=.*/GATEWAY=\$NET.\$GW_IP_END/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE
 sed -i "s/DEFROUTE=.*/DEFROUTE=yes/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE
+ip route replace default via \$NET.\$GW_IP_END dev \$IFACE
 EOF
 
 systemctl enable httpd
