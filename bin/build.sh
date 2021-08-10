@@ -7,6 +7,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. >/dev/null 2>&1 && pwd )"
 source $DIR/global.config.sh
 source $DIR/config.sh
 
+# Backup config
+cp -vf $DIR/config.sh $BUILD/config.sh
+
 # Generate Cloud-init
 bash $DIR/bin/gen-cloud-init.sh
 
