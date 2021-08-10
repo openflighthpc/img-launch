@@ -14,6 +14,8 @@ SSH_ARGS='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o Passwor
 SCRIPT="$(cat << EOF
 $(cat $DIR/global.config.sh)
 $(cat $DIR/config.sh)
+echo "---- Applying Network Configuration ----"
+$(cat $DIR/scripts/base_network.sh)
 echo "---- Applying Client Configuration ----"
 $(cat $DIR/scripts/client.sh)
 echo "---- Applying Base Configuration ----"

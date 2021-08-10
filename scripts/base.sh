@@ -3,11 +3,8 @@
 # Base Script for All Systems
 #
 
-yum -y install firewalld
-systemctl enable firewalld
-
 #
-# Network setup
+# Hosts setup
 #
 
 hostentries="$(
@@ -21,39 +18,14 @@ cat << EOF >> /etc/hosts
 $hostentries
 EOF
 
+#
+# Firewall setup
+#
 
-if [[ ! -z "$EXT_BRIDGE" ]] ; then
-
-cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$EXT_IFACE
-TYPE=Ethernet
-BOOTPROTO=dhcp
-DEFROUTE=yes
-PEERDNS=yes
-PEERROUTES=yes
-NAME=$EXT_IFACE
-DEVICE=$EXT_IFACE
-ONBOOT=yes
-ZONE=external
-EOF
-
-fi
+yum -y install firewalld
+systemctl enable firewalld
 
 if [[ ! -z "$SITE_BRIDGE" ]] ; then
-
-cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$SITE_IFACE
-TYPE=Ethernet
-BOOTPROTO=none
-DEFROUTE=no
-PEERDNS=no
-PEERROUTES=no
-NAME=$SITE_IFACE
-DEVICE=$SITE_IFACE
-ONBOOT=yes
-IPADDR=$SITE_IP
-NETMASK=255.255.0.0
-ZONE=site
-EOF
-
     firewall-offline-cmd --new-zone site 
     firewall-offline-cmd --set-target=ACCEPT --zone site 
     firewall-offline-cmd --zone site --add-interface $SITE_IFACE 
@@ -61,21 +33,6 @@ fi
 
 
 if [[ ! -z "$PRI_BRIDGE" ]] ; then
-
-cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$PRI_IFACE
-TYPE=Ethernet
-BOOTPROTO=none
-DEFROUTE=no
-PEERDNS=no
-PEERROUTES=no
-NAME=$PRI_IFACE
-DEVICE=$PRI_IFACE
-ONBOOT=yes
-IPADDR=$PRI_IP
-NETMASK=255.255.0.0
-ZONE=cluster1
-EOF
-
     firewall-offline-cmd --new-zone cluster1 
     firewall-offline-cmd --set-target=ACCEPT --zone cluster1 
     firewall-offline-cmd --zone cluster1 --add-interface $PRI_IFACE 
@@ -83,21 +40,6 @@ EOF
 fi
 
 if [[ ! -z "$MGT_BRIDGE" ]] ; then
-
-cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$MGT_IFACE
-TYPE=Ethernet
-BOOTPROTO=none
-DEFROUTE=no
-PEERDNS=no
-PEERROUTES=no
-NAME=$MGT_IFACE
-DEVICE=$MGT_IFACE
-ONBOOT=yes
-IPADDR=$MGT_IP
-NETMASK=255.255.0.0
-ZONE=cluster1mgt
-EOF
-
     firewall-offline-cmd --new-zone cluster1mgt 
     firewall-offline-cmd --set-target=ACCEPT --zone cluster1mgt 
     firewall-offline-cmd --zone cluster1mgt --add-interface $MGT_IFACE 
@@ -139,7 +81,6 @@ sed -i -e 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 echo 'ZONE="Europe/London"' > /etc/sysconfig/clock
 ln -snf /usr/share/zoneinfo/Europe/London /etc/localtime
-
 
 yum -y update
 yum -y install git vim wget
