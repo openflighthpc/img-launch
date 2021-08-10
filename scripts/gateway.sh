@@ -33,9 +33,10 @@ cat << EOF > /opt/flight/client/setup.sh
 # Setup GW Client
 #
 IFACE="eth0"
-NET="\$(ifconfig \$IFACE 2>/dev/null |awk '/inet / {print \$2}' |sed 's/addr://' |cut -d '.' -f1,2)"
+NET="\$(grep "^IPADDR" /etc/sysconfig/network-scripts/ifcfg-\$IFACE |sed "s/IPADDR=//g" |cut -d "." -f1,2)"
 GW_IP_END="$(echo "$SITE_IP" |cut -d '.' -f3,4)"
-echo "default via \$NET.\$GW_IP_END dev \$IFACE" > /etc/sysconfig/network-scripts/route-\$IFACE
+sed -i "s/GATEWAY=.*/GATEWAY=\$NET.\$GW_IP_END/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE
+sed -i "s/DEFROUTE=.*/DEFROUTE=yes/g" /etc/sysconfig/network-scripts/ifcfg-\$IFACE
 EOF
 
 systemctl enable httpd
