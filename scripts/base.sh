@@ -10,11 +10,15 @@ systemctl enable firewalld
 # Network setup
 #
 
+hostentries="$(
+[[ ! -z "$SITE_BRIDGE" ]] && echo "$SITE_IP    $VM_NAME.$DOMAIN $VM_NAME.$SITE_NAME $VM_NAME"
+[[ ! -z "$PRI_BRIDGE" ]] && echo "$PRI_IP    $VM_NAME.pri.$CLUSTER_DOMAIN $VM_NAME.pri.$CLUSTER_NAME.$SITE_NAME $VM_NAME.pri.$CLUSTER_NAME"
+[[ ! -z "$MGT_BRIDGE" ]] && echo "$MGT_IP    $VM_NAME.mgt.$CLUSTER_DOMAIN $VM_NAME.mgt.$CLUSTER_NAME.$SITE_NAME $VM_NAME.mgt.$CLUSTER_NAME"
+)"
+
 cat << EOF >> /etc/hosts
 # $VM_NAME
-$SITE_IP    $VM_NAME.$DOMAIN $VM_NAME.$SITE_NAME $VM_NAME
-$PRI_IP    $VM_NAME.pri.$CLUSTER_DOMAIN $VM_NAME.pri.$CLUSTER_NAME.$SITE_NAME $VM_NAME.pri.$CLUSTER_NAME
-$MGT_IP    $VM_NAME.mgt.$CLUSTER_DOMAIN $VM_NAME.mgt.$CLUSTER_NAME.$SITE_NAME $VM_NAME.mgt.$CLUSTER_NAME
+$hostentries
 EOF
 
 
