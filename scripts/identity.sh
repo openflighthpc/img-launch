@@ -40,7 +40,7 @@ echo "$PASSWORD" |kinit admin
 # Add Cluster Primary DNS Zone
 #
 ipa dnszone-add pri.$CLUSTER_DOMAIN
-
+ipa dnszone-add $(echo "$PRI_IP" |cut -d '.' -f2,1).in-addr.arpa.
 
 #
 # Mail Entry
