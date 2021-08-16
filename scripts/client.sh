@@ -17,4 +17,6 @@ fi
 #
 # Identity Client Script
 #
-
+if [[ "$PRI_IP" != "$IDENTITY_IP" ]] ; then
+    curl http://$IDENTITY_IP/client/setup.sh |/bin/bash
+fi
