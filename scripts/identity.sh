@@ -29,8 +29,8 @@ ipa-server-install -a $PASSWORD \
                    --ds-password $PASSWORD \
                    --domain "$DOMAIN" \
                    --no-ntp --setup-dns \
-                   --forwarder="$GW_IP" \ 
-                   --reverse-zone="$(echo "$PRI_IP" |cut -d '.' -f2,1).in-addr.arpa." \
+                   --forwarder="$GW_IP" \
+                   --reverse-zone="$(echo "$SITE_IP" |cut -d '.' -f2,1).in-addr.arpa." \
                    --ssh-trust-dns --unattended
 
 # Login
@@ -40,6 +40,7 @@ echo "$PASSWORD" |kinit admin
 # Add Cluster Primary DNS Zone
 #
 ipa dnszone-add pri.$CLUSTER_DOMAIN
+
 
 #
 # Mail Entry
