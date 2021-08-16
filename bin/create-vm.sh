@@ -39,7 +39,7 @@ NET_ARGS="$(
 virt-install \
 --name $VM_NAME \
 --import \
---ram 2048 \
+--ram $RAM \
 --disk $VM_DISK,device=disk,bus=virtio \
 --disk $BUILD/userdata.iso,device=cdrom,bus=scsi \
 --vcpus 2 \

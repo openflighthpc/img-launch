@@ -33,6 +33,7 @@ SSH_PUB_KEY="ssh-rsa MY_KEY_HERE user@host"
 ROOT_PASS="ReplaceMe"
 
 DISK_SIZE="128G"
+RAM=2048 # MB
 
 ######################
 # DO NOT TOUCH BELOW #
