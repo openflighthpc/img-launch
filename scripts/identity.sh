@@ -97,7 +97,7 @@ ipa group-add-member AdminUsers --users alces-cluster
 # Site User, Group & Sudo Rules
 #
 sitepass="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)"
-echo "Site User Password: $sitepass" 
+echo "Site User Password: $sitepass" >> $PASSWORDFILE 
 
 echo "$sitepass" |ipa user-add siteadmin --first Site --last Admin --password
 ipa group-add siteadmins --desc="Site admin users (power users)"
@@ -132,7 +132,7 @@ IPASCRIPTS=/root/ipa_utils
 mkdir -p $IPASCRIPTS
 
 clientpass="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)"
-echo "Host Client Password: $clientpass"
+echo "Host Client Password: $clientpass" >> $PASSWORDFILE
 
 cat << EOF > $IPASCRIPTS/addhost.sh
 host=\$1
