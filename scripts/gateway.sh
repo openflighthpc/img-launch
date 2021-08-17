@@ -9,6 +9,10 @@
 firewall-offline-cmd --add-masquerade --zone public
 firewall-offline-cmd --add-interface $EXT_IFACE --zone public
 
+# For forwarding cluster1 pri traffic to site traffic
+firewall-offline-cmd --add-masquerade --zone site
+
+
 #
 # DNS Forwarding
 #
