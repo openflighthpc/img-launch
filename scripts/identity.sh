@@ -189,4 +189,4 @@ ipa-client-install --no-ntp --mkhomedir --no-ssh --no-sshd --force-join --realm=
 EOF
 
 systemctl enable httpd
-systemctl start httpd
+systemctl restart httpd
