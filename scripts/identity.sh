@@ -138,19 +138,19 @@ cat << EOF > $IPASCRIPTS/addhost.sh
 host=\$1
 ip=\$2
 
-if [ ! -z \$host ] ; then
+if [ -z "\$host" ] ; then
     echo "Please provide a host"
     echo "    addhost.sh HOST IP"
     exit 1
 fi
 
-if [ ! -z \$ip ] ; then
+if [ -z "\$ip" ] ; then
     echo "Please provide an IP"
     echo "    addhost.sh HOST IP"
     exit 1
 fi
 
-grep '^IPA Admin Password' $PASSWORDFILE |sed 's/.*: //g' |kinit admin
+grep "^IPA Admin Password" $PASSWORDFILE |sed "s/.*: //g" |kinit admin
 
 ipa host-add \$host.pri.$CLUSTER_DOMAIN --password="$clientpass" --ip-address=\$ip
 EOF
